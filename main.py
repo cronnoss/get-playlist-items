@@ -1,8 +1,13 @@
 import requests
+import os
+from dotenv import load_dotenv
 
-url = "https://api.spotify.com/v1/playlists/5PzmUOcfEsyHMADFUxm555/tracks"
+load_dotenv()
+playlist_id = os.getenv('PLAYLIST_ID')
+
+url = "https://api.spotify.com/v1/playlists/" + playlist_id + "/tracks"
 headers = {
-    'Authorization': 'Bearer BQD-AbJwf8a7qRRGf9NqmH9-hmhO61wOLbgyDrTeCdz-kaO3SCKE8eXuyObl9fyzu7Nmz0JkmRBTd9-GB88y0WzIKK0MCjFcpTos8dJpLewZySHFh555',
+    'Authorization': f"Bearer {os.getenv('SPOTIFY_BEARER_TOKEN')}",
 }
 
 response = requests.get(url, headers=headers)
@@ -18,4 +23,3 @@ with open('tracks.txt', 'w') as f:
     for item in data['items']:
         track = item['track']
         f.write(f"{track['name']} - {track['artists'][0]['name']}\n")
-

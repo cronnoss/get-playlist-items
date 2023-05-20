@@ -5,3 +5,6 @@ uid
 venv/
 .idea/
 *.iml
+
+.env
+*.txt
